@@ -1,0 +1,19 @@
+services:
+  app1:
+    build: docker/perl
+    volumes:
+      - ./app1:/home/app/www
+    working_dir: /home/app/www
+    command: plackup -I. -s FCGI --port 9000 /home/app/www/app.psgi
+
+  app2:
+    build: docker/perl
+    volumes:
+      - ./app2:/home/app/www
+    working_dir: /home/app/www
+    command: plackup -I. -s FCGI --port 9000 /home/app/www/app.psgi
+
+  nginx:
+    build: docker/nginx
+    ports:
+      - 80:80
